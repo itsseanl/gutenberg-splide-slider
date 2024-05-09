@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/gutenberg-splide-slider",
+	"version": "0.1.0",
+	"title": "Gutenberg Splide Slider",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block scaffolded with Create Block tool.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"splideSettings": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "div",
+			"attribute": "data-splide"
+		}
+	},
+	"textdomain": "gutenberg-splide-slider",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
