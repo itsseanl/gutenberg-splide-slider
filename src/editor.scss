@@ -8,6 +8,11 @@
 	border: 1px dotted #f00;
 }
 
-.splide{
+.splide {
 	visibility: visible;
+}
+
+.components-panel__row.home-banner-panelrow {
+	display: flex !important;
+	flex-direction: column !important;
 }

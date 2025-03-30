@@ -218,7 +218,7 @@ export default function Edit({ attributes, setAttributes }) {
 		let dataSplide = splideAtts
 			? splideAtts
 					.filter((setting) => {
-						if (setting.value) {
+						if (setting.value && setting.value !== "false") {
 							return true;
 						} else {
 							return false;
@@ -241,6 +241,9 @@ export default function Edit({ attributes, setAttributes }) {
 	function updateSettings(key, val) {
 		let updatedSettings = splideSettings;
 		const newSettings = updatedSettings.map((setting) => {
+			// if (setting.key == "autoWidth" && setting.value == "false") {
+			// 	return;
+			// }
 			if (setting.key == key) {
 				setting.value = val;
 			}
