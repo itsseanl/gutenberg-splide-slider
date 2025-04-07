@@ -13,7 +13,8 @@
 		"color": {
 			"background": true,
 			"text": true
-		}
+		},
+		"align": true
 	},
 	"attributes": {
 		"splideSettings": {
@@ -21,6 +22,10 @@
 			"source": "attribute",
 			"selector": "div",
 			"attribute": "data-splide"
+		},
+		"autoscroll": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"textdomain": "gutenberg-splide-slider",

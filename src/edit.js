@@ -7,191 +7,12 @@ import {
 import { Panel, PanelBody, PanelRow } from "@wordpress/components";
 import { useState, useEffect } from "react";
 import { SplideSettings } from "./components/SplideSettings.js";
+import { SingleSetting } from "./components/SingleSetting.js";
 import "./editor.scss";
-
+import SettingsOptions from "./splideSettings.json";
 export default function Edit({ attributes, setAttributes }) {
-	const [splideSettings, setSplideSettings] = useState([
-		{
-			key: "type",
-			type: "string",
-			value: "loop",
-		},
-		{
-			key: "rewind",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "speed",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "rewindspeed",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "rewindByDrag",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "width",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "height",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "fixedWidth",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "fixedHeight",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "heightRatio",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "autoWidth",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "autoHeight",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "start",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "perPage",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "perMove",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "focus",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "gap",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "padding",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "arrows",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "pagination",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "easing",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "easingFunc",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "drag",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "snap",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "noDrag",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "dragMinThreshold",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "flickPower",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "flickMaxPages",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "waitForTransition",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "arrowPath",
-			type: "string",
-			value: "",
-		},
-		{
-			key: "autoplay",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "interval",
-			type: "number",
-			value: "",
-		},
-		{
-			key: "pauseOnHover",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "pauseOnFocus",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "resetFocus",
-			type: "boolean",
-			value: "",
-		},
-		{
-			key: "lazyload",
-			type: "boolean",
-			value: "",
-		},
-	]);
+	const [splideSettings, setSplideSettings] = useState(SettingsOptions);
+	const [autoScroll, setAutoScroll] = useState(attributes.autoscroll);
 
 	useEffect(() => {
 		let settings = attributes.splideSettings;
@@ -218,10 +39,13 @@ export default function Edit({ attributes, setAttributes }) {
 		let dataSplide = splideAtts
 			? splideAtts
 					.filter((setting) => {
-						if (setting.value && setting.value !== "false") {
-							return true;
-						} else {
+						if (
+							(setting.key == "autoWidth" && setting.value == "false") ||
+							!setting.value
+						) {
 							return false;
+						} else {
+							return true;
 						}
 					})
 					.map((setting) => {
@@ -241,9 +65,6 @@ export default function Edit({ attributes, setAttributes }) {
 	function updateSettings(key, val) {
 		let updatedSettings = splideSettings;
 		const newSettings = updatedSettings.map((setting) => {
-			// if (setting.key == "autoWidth" && setting.value == "false") {
-			// 	return;
-			// }
 			if (setting.key == key) {
 				setting.value = val;
 			}
@@ -251,6 +72,10 @@ export default function Edit({ attributes, setAttributes }) {
 		});
 		console.log("newSettings: ", newSettings);
 		setSplideSettings(newSettings);
+	}
+
+	function updateAutoScroll(name, val) {
+		setAutoScroll({ autoscroll: val });
 	}
 
 	console.log(splideSettings);
@@ -281,6 +106,7 @@ export default function Edit({ attributes, setAttributes }) {
 				className="splide"
 				role="group"
 				data-splide={attributes.splideSettings}
+				data-autoscroll={autoScroll}
 				aria-label="Splide Basic HTML Example"
 			>
 				<div class="splide__track">
